@@ -1,0 +1,22 @@
+table{
+    width: 80%;
+    margin-left: 20px;
+}
+.mat-form-field{
+    font-size: 15px;
+    width: 20%;
+}
+.filter{
+    display: flex;
+    justify-content: center;
+    margin-left: 30px;
+}
+.mat-header-cell{
+    background-color: #c2cfce;
+    box-shadow: bisque;
+    font-size: 15px;
+    justify-content: space-around;
+}
+.mat-icon-button{
+    font-weight: bold;
+}
