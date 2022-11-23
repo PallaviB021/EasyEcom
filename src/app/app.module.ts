@@ -26,6 +26,9 @@ import {HttpClientModule} from '@angular/common/http'
 import { CdkColumnDef } from '@angular/cdk/table';
 
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +54,8 @@ import { CdkColumnDef } from '@angular/cdk/table';
     HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+
 
   ],
   providers: [CdkColumnDef],

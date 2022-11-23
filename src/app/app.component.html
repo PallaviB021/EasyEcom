@@ -7,7 +7,10 @@
     <router-outlet></router-outlet>
   </mat-toolbar-row>
   <mat-drawer style="width: 200px" #drawer mode='push'>
-    <h2 style="margin-left: 10px">EasyEcom</h2>
+    <div class="header">
+      <img src="../assets/uxpcsur41fimh5gis4us.webp" class="logo" /> 
+      <h1 class="company-name">EasyEcom</h1>
+    </div>
     <p mat-list-item [routerLink]=" 'company-list' ">Company List</p>
     <p mat-list-item [routerLink]="'add-company'">New Company</p>  
   </mat-drawer>

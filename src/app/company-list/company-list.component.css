@@ -20,3 +20,8 @@ table{
 .mat-icon-button{
     font-weight: bold;
 }
+.pagesize-container{
+   display: flex;
+   width: 80%;
+   justify-content: flex-end;
+}

@@ -2,7 +2,6 @@ import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 
-
 @Component({
   selector: 'app-new-compnay',
   templateUrl: './new-compnay.component.html',
@@ -11,11 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class NewCompnayComponent implements OnInit {
   designations:any=["Developer","Manager","System Admin","Technical Lead","PM"];
   startDate: Date = new Date();
-  // skillSet = ['java', 'Angular', 'CSS', 'HTML', 'JavaScript', 'UI', 'SQL', 'React', 'PHP',
-  //   'GIT', 'AWS', 'Python', 'Django', 'C', 'C++', 'C#', 'Unity', 'R', 'AI', 'NLP',
-  //   'Photoshop', 'Nodejs'];
+  skillSet = ['Java', 'Angular', 'CSS', 'HTML', 'JavaScript', 'UI', 'SQL', 'React', 'PHP',
+    'GIT', 'AWS', 'Python', 'Django', 'C', 'C++', 'C#', 'Unity', 'R', 'AI', 'NLP',
+    'Photoshop', 'Nodejs'];
     
-  enteredRating: number = 0;
+  rating=[1,2,3,4,5]
   companyDetails: FormGroup =this.formBuilder.group({
     companyName:["",[Validators.required,Validators.maxLength(300)]],
     companyAddress:[""],
@@ -26,14 +25,19 @@ export class NewCompnayComponent implements OnInit {
       designation:["",[Validators.required]],
       joinDate: [this.startDate,[Validators.required]],
       employeeContact:["",[Validators.required,Validators.maxLength(15)]],
-      educationDetails:new FormArray([])
+      rating:["",[Validators.required]],
+      skillsInfo:this.formBuilder.group({
+        skills:["",[Validators.required]],
+        rating:["",[Validators.required]]
+      })
       
     }),
+    
     
   })
   constructor(private formBuilder:FormBuilder){}
   ngOnInit(): void{
-
+    
   }
 
   saveData() {
