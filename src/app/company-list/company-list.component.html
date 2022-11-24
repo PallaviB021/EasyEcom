@@ -3,7 +3,7 @@
     <input matInput placeholder="" search #input/>
 </mat-form-field>
 <div>
-    <table mat-table matSort [dataSource]="companyDataSource">
+    <table mat-table matSort [dataSource]="dataSource">
         <ng-container matColumnDef="companyName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</th>
             <td mat-cell>company name</td>

@@ -51,6 +51,7 @@ p {
 }
 p:hover{
     background-color: #618f6d;
+    padding: 30px;
 }
 .example-container {
     width: 400px;
@@ -74,4 +75,8 @@ p:hover{
     margin-left: 5px;
     margin-top: 32px;
     font-size: 25px;
+}
+p{
+    font-size: medium;
+    margin-top:20px
 }

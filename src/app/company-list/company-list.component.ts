@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { TableService } from '../table.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -8,8 +8,7 @@ export interface companyData{
   companyName:string,
   companyEmail:string,
   phoneNumber:number,
-  createdAt:string,
-  actions:string
+  action:any;
 }
 
 @Component({
@@ -17,26 +16,32 @@ export interface companyData{
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.css']
 })
-export class CompanyListComponent {
-  displayedColumns:string[]=['companyName','companyEmail','phoneNumber','createdAt','actions'];
-  companyDataSource!:MatTableDataSource<companyData>;
-  @ViewChild(MatPaginator) paginator!:MatPaginator
-  @ViewChild(MatSort) sort!:MatSort
-  details:any;
+export class CompanyListComponent implements AfterViewInit{
+  displayedColumns:string[]=['companyName','companyEmail','phoneNumber'];
+  dataSource=new MatTableDataSource([])
+  @ViewChild(MatPaginator) paginator!:MatPaginator;
+  @ViewChild(MatSort) sort!:MatSort;
+  ngAfterViewInit(){
+    this.dataSource.paginator=this.paginator
+  }
+  companies=[];
   constructor(private service:TableService) {
-    this.service.getCompanyData().subscribe((data: any)=>{
-      console.log(data)
-      this.details=data
-
-      this.companyDataSource=new MatTableDataSource(this.details)
-      this.companyDataSource.paginator=this.paginator
-    })
+    let companies:any="";
+    companies= localStorage.getItem('companyInformation');
+    let companiesDetailsArray=JSON.parse(companies);
+    if(companiesDetailsArray.length){
+      this.companies=companiesDetailsArray;
+      this.dataSource=new MatTableDataSource(companiesDetailsArray)
+      this.dataSource.paginator=this.paginator
+      console.log(this.dataSource);
+      console.log(this.companies)
+    }
    }
   applyFilter(event:Event){
     const filterValue=(event.target as HTMLInputElement).value;
-    this.companyDataSource.filter=filterValue.trim().toLowerCase()
-    if(this.companyDataSource.paginator){
-      this.companyDataSource.paginator.firstPage()
+    this.dataSource.filter=filterValue.trim().toLowerCase()
+    if(this.dataSource.paginator){
+      this.dataSource.paginator.firstPage()
     }
   }
 
