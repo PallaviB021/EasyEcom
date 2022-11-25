@@ -4,7 +4,7 @@ import { CompanyListComponent } from './company-list/company-list.component';
 import { NewCompnayComponent } from './new-compnay/new-compnay.component';
 
 const routes: Routes = [
-  {path:'',redirectTo:'company-list',pathMatch:'full'},
+  {path:'',redirectTo:'add-company',pathMatch:'full'},
   {path:'company-list',component:CompanyListComponent},
   {path:'add-company',component:NewCompnayComponent}
 ];

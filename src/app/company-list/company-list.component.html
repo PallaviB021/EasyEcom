@@ -1,44 +1,38 @@
-<mat-form-field appearance="standard" class="filter">
-    <mat-label search (keyup)="applyFilter($event)">Filter Table</mat-label>
-    <input matInput placeholder="" search #input/>
-</mat-form-field>
-<div>
-    <table mat-table matSort [dataSource]="dataSource">
-        <ng-container matColumnDef="companyName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</th>
-            <td mat-cell>company name</td>
-        </ng-container>
-        <ng-container matColumnDef="companyEmail">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-            <td mat-cell>company email</td>
-        </ng-container>
-        <ng-container matColumnDef="phoneNumber">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number</th>
-            <td mat-cell>company number</td>
-        </ng-container>
-        <ng-container matColumnDef="createdAt">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-            <td mat-cell>created at</td>
-        </ng-container>
-        <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Actions </th>
-            <mat-cell *matCellDef="let row">
-              <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary">
-                  <mat-icon aria-label="Edit">edit</mat-icon>
-                </button>
-              <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn">
-                  <mat-icon aria-label="Delete">delete</mat-icon>
-                </button>
-            </mat-cell>
-          </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-       <!-- display no data row when there is no such filter -->
-        <tr *matNoDataRow>
-            <td class="mat-cell" colspan="5">Filter does not match {{input.value}}</td>
-        </tr>
-    </table>
-   <div class="pagesize-container">
-        <mat-paginator [pageSizeOptions]="[5,10,25,100]" aria-label="" select page of company></mat-paginator>
-   </div>
-   
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortCompany($event)"
+       class="mat-elevation-z8" class="container">
+  <ng-container matColumnDef="companyName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Company name</th>
+    <td mat-cell *matCellDef="let data"> {{data.companyName}} </td>
+  </ng-container>
+  <ng-container matColumnDef="companyEmail">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Email</th>
+    <td mat-cell *matCellDef="let data"> {{data.companyEmail}} </td>
+  </ng-container>
+  <ng-container matColumnDef="phoneNumber">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Contact</th>
+    <td mat-cell *matCellDef="let data"> {{data.companyContact}} </td>
+  </ng-container>
+  <ng-container matColumnDef="createdAt">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
+    <td mat-cell *matCellDef="let data"> {{data.employeeInfo.joinDate | date}} </td>
+  </ng-container>
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
+    <td mat-cell *matCellDef="let data"> <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
+        color="primary">
+        <mat-icon>edit</mat-icon>
+      </button> <td>
+  </ng-container>
+  <ng-container matColumnDef="delete">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
+  <td mat-cell *matCellDef="let data"> <button mat-icon-button matTooltip="Click to delete" class="iconbutton"
+      color="warn">
+      <mat-icon>delete</mat-icon>
+    </button> <td>
+</ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<div class="pagination">
+    <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page"></mat-paginator>
 </div>

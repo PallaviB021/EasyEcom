@@ -1,14 +1,19 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { TableService } from '../table.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 export interface companyData{
   companyName:string,
   companyEmail:string,
   phoneNumber:number,
   action:any;
+  createdAt:any;
+  edit:any;
+  delete:any;
+
 }
 
 @Component({
@@ -17,15 +22,16 @@ export interface companyData{
   styleUrls: ['./company-list.component.css']
 })
 export class CompanyListComponent implements AfterViewInit{
-  displayedColumns:string[]=['companyName','companyEmail','phoneNumber'];
+  displayedColumns:string[]=['companyName','companyEmail','phoneNumber','createdAt','edit','delete'];
   dataSource=new MatTableDataSource([])
   @ViewChild(MatPaginator) paginator!:MatPaginator;
   @ViewChild(MatSort) sort!:MatSort;
   ngAfterViewInit(){
-    this.dataSource.paginator=this.paginator
+    this.dataSource.paginator=this.paginator,
+    this.dataSource.sort = this.sort;
   }
   companies=[];
-  constructor(private service:TableService) {
+  constructor(private _liveAnnouncer: LiveAnnouncer) {
     let companies:any="";
     companies= localStorage.getItem('companyInformation');
     let companiesDetailsArray=JSON.parse(companies);
@@ -37,11 +43,11 @@ export class CompanyListComponent implements AfterViewInit{
       console.log(this.companies)
     }
    }
-  applyFilter(event:Event){
-    const filterValue=(event.target as HTMLInputElement).value;
-    this.dataSource.filter=filterValue.trim().toLowerCase()
-    if(this.dataSource.paginator){
-      this.dataSource.paginator.firstPage()
+   sortCompany(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
     }
   }
 
