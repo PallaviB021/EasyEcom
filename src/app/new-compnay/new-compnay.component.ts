@@ -18,10 +18,11 @@ export class NewCompnayComponent implements OnInit {
   companyDetails: FormGroup =this.formBuilder.group({
     companyName:["",[Validators.required,Validators.maxLength(300)]],
     companyAddress:[""],
-    companyEmail:["",[Validators.required,Validators.email,Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-    companyContact:["",[Validators.required,Validators.maxLength(15)]],
+    companyEmail:["",[Validators.required,Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+    companyContact:["",[Validators.required,Validators.maxLength(10),Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+    
     employeeInfo: this.formBuilder.group({
-      employeEmail:["",[Validators.required,Validators.email,Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      employeEmail:["",[Validators.required,Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       designation:["",[Validators.required]],
       joinDate: [this.startDate,[Validators.required]],
       employeeContact:["",[Validators.required,Validators.maxLength(15)]],

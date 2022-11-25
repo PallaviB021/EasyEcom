@@ -34,6 +34,7 @@
                         <mat-label>Telephone</mat-label>
                         <input type="tel" matInput placeholder="0987654321" formControlName="companyContact"> 
                         <mat-error *ngIf="companyDetails.controls['companyContact'].hasError('required')"><strong>Contact is required</strong></mat-error>
+                        <mat-error *ngIf="companyDetails.controls['companyContact'].hasError('maxlength')"><strong>Contact should be 10 digits</strong></mat-error>
                     </mat-form-field>
                 </div>
                 <br>
@@ -47,6 +48,7 @@
                         <mat-select [disableOptionCentering]="true" formControlName="designation">
                             <mat-option *ngFor="let designation of designations" [value]="designation">{{designation}}</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="companyDetails.hasError('required')">Invalid</mat-error>
                     </mat-form-field> 
                 </div>         
                 <div>
