@@ -11,7 +11,6 @@ export interface companyData{
   phoneNumber:number,
   action:any;
   createdAt:any;
-  edit:any;
   delete:any;
 
 }
@@ -22,10 +21,12 @@ export interface companyData{
   styleUrls: ['./company-list.component.css']
 })
 export class CompanyListComponent implements AfterViewInit{
-  displayedColumns:string[]=['companyName','companyEmail','phoneNumber','createdAt','edit','delete'];
+  displayedColumns:string[]=['companyName','companyEmail','phoneNumber','createdAt','delete'];
   dataSource=new MatTableDataSource([])
   @ViewChild(MatPaginator) paginator!:MatPaginator;
   @ViewChild(MatSort) sort!:MatSort;
+
+  
   ngAfterViewInit(){
     this.dataSource.paginator=this.paginator,
     this.dataSource.sort = this.sort;
@@ -39,8 +40,6 @@ export class CompanyListComponent implements AfterViewInit{
       this.companies=companiesDetailsArray;
       this.dataSource=new MatTableDataSource(companiesDetailsArray)
       this.dataSource.paginator=this.paginator
-      console.log(this.dataSource);
-      console.log(this.companies)
     }
    }
    sortCompany(sortState: Sort) {
@@ -49,6 +48,13 @@ export class CompanyListComponent implements AfterViewInit{
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  deleteCompany(item:number){
+    const data = this.dataSource.data;
+    data.splice((this.paginator.pageIndex * this.paginator.pageSize) + item, 1);
+    this.dataSource.data = data;
+    localStorage.setItem('companyInformation',JSON.stringify(data))
   }
 
 }

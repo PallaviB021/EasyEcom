@@ -8,11 +8,21 @@
   </mat-toolbar-row>
   <mat-drawer style="width: 200px" #drawer mode='push'>
     <div class="header">
-      <h1 class="company-name">EasyEcom</h1>
+      <img src="../assets/logo.png" class="logo" alt="logo"><span class="company-name">EasyEcom</span>
     </div>
-    <div>
-      <p mat-list-item [routerLink]=" 'company-list' ">Company List</p>
-      <p mat-list-item [routerLink]="'add-company'">New Company</p>  
+    <div class="nav-bar">
+      <h3 mat-list-item [routerLink]=" 'company-list' ">
+        <div class="list-item">
+          <mat-icon class="icon">list</mat-icon>
+          <span>Company Details</span>
+        </div>  
+      </h3>
+      <h3 mat-list-item [routerLink]=" 'add-company' ">
+        <div class="list-item">
+          <mat-icon class="icon">language</mat-icon>
+          <span>Add Company</span>
+        </div>  
+      </h3>
     </div>
   </mat-drawer>
 </mat-drawer-container>

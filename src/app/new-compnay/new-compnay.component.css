@@ -21,7 +21,7 @@
 }
 h3{
     display: flex;
-    justify-content: center;
+    margin-left: 40%;
     color:#618f6d;
     font-weight: bold;
 }
@@ -41,8 +41,15 @@ h3{
     margin-left: 30px;
 }
 .saveButton{
-    background-color: #c2cfce;
+    background-color: #618f6d;
     width: 20px;
     display: flex;
     margin-left:47%;
+    margin-top: 10px;
+}
+.addButton{
+    background-color: #618f6d;
+    font-weight: bolder;
+    width: 30px;
+    margin-bottom: 10px;
 }

@@ -39,7 +39,8 @@
                 </div>
                 <br>
             </div>
-        <div formGroupName="employeeInfo" class="employee-container">
+        </form>
+        <form [formGroup]="employeeInfo" class="container">
             <h3>Employee Details</h3>
             <div class="company-container">
                 <div>
@@ -48,15 +49,15 @@
                         <mat-select [disableOptionCentering]="true" formControlName="designation">
                             <mat-option *ngFor="let designation of designations" [value]="designation">{{designation}}</mat-option>
                         </mat-select>
-                        <mat-error *ngIf="companyDetails.hasError('required')">Invalid</mat-error>
+                        <mat-error *ngIf="employeeInfo.controls['designation'].hasError('required') && employeeInfo.controls['designation'].touched"><strong>Designation is required</strong></mat-error>
                     </mat-form-field> 
                 </div>         
                 <div>
                     <mat-form-field class="example-full-width space-left" appearance="outline">
                         <mat-label>Email</mat-label>
                         <input type="email" matInput placeholder="test@example.com" formControlName="employeEmail">
-                        <mat-error *ngIf="companyDetails.controls['employeEmail']?.hasError('email')"><strong>Invalid Email</strong></mat-error>
-                        <mat-error *ngIf="companyDetails.controls['employeEmail']?.hasError('required')"><strong>Email is required</strong></mat-error>
+                        <mat-error *ngIf="employeeInfo.controls['employeEmail'].hasError('email')"><strong>Invalid Email</strong></mat-error>
+                        <mat-error *ngIf="employeeInfo.controls['employeEmail']?.hasError('required')"><strong>Email is required</strong></mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -66,41 +67,48 @@
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Contact Number</mat-label>
                         <input type="tel" matInput placeholder="0987654321" formControlName="employeeContact"> 
-                        <mat-error *ngIf="companyDetails.controls['employeeContact']?.hasError('required')"><strong>Contact is required</strong></mat-error>
+                        <mat-error *ngIf="employeeInfo.controls['employeeContact'].hasError('required')"><strong>Contact is required</strong></mat-error>
+                        <mat-error *ngIf="employeeInfo.controls['employeeContact'].hasError('maxlength')"><strong>Contact should be 10 digits</strong></mat-error>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field appearance="outline" class="space-left">
-                        <input matInput [max] ="startDate"  [matDatepicker]="picker">
+                        <mat-label>Select Date</mat-label>
+                        <input matInput [max]="startDate" [matDatepicker]="picker" formControlName="joinDate">
                         <mat-datepicker-toggle matSuffix [for]="picker" style="width:0.5em;"></mat-datepicker-toggle>
+                        <mat-hint>DD/MM/YYYY</mat-hint>
                         <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="employeeInfo.controls['joinDate'].hasError('required')"><strong>Date filed is required</strong></mat-error>
                     </mat-form-field>
                 </div>
             </div>
-            
-            <div formGroupName="skillsInfo">
+            <div>
                 <h3>Rate your Skill</h3>
-               <div class="company-container">
-                <div>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Skill</mat-label>
-                        <mat-select [disableOptionCentering]="true" formControlName="skills">
-                            <mat-option *ngFor="let skill of skillSet" [value]="skill">{{skill}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div>
-                    <mat-form-field appearance="outline" class="space-left">
-                        <mat-label>Rating</mat-label>
-                        <mat-select [disableOptionCentering]="true" formControlName="rating">
-                            <mat-option *ngFor="let rate of rating" [value]="rate">{{rate}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-               </div>
-    
+                    <div formArrayName="skillsInfo" *ngFor="let skillsInfo of skills.controls; let i = index">
+                        <div [formGroupName]="i">
+                            <div class="company-container">
+                                <div>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Skill</mat-label>
+                                        <mat-select [disableOptionCentering]="true" formControlName="skills">
+                                            <mat-option *ngFor="let skill of skillSet" [value]="skill">{{skill}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field appearance="outline" class="space-left">
+                                        <mat-label>Rating</mat-label>
+                                        <mat-select [disableOptionCentering]="true" formControlName="rating">
+                                            <mat-option *ngFor="let rate of rating" [value]="rate">{{rate}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <input type="button" (click)="addNewSkill()" class="addButton" placeholder="+"/>
+                <mat-hint class="mat-hint">Add Skill</mat-hint>
             </div>
-        </div>
         <button  mat-raised-button (click)="saveData()" class="saveButton">Save</button>
     </form>
     
